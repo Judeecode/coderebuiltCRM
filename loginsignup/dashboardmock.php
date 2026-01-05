@@ -648,8 +648,10 @@
 
 
         #content main .table-data .todo {
-            flex-grow: 1;
+            flex-grow: 0.3;
             flex-basis: 300px;
+            min-width: 360px;
+            overflow: hidden;
         }
         #content main .table-data .todo .todo-list {
             width: 100%;
@@ -721,17 +723,12 @@
 
         /* Media Query for Smaller Screens */
         @media screen and (max-width: 768px) {
-            /* Reduce width of notification and profile menu */
-            #content nav .notification-menu,
-            #content nav .profile-menu {
-                width: 180px;
-            }
             #sidebar {
                 width: 200px;
             }
 
             #content {
-                width: calc(100% - 60px);
+                width: calc(100% - 200px);
                 left: 200px;
             }
 
@@ -740,13 +737,16 @@
             }
         }
 
-
-
-
         @media screen and (max-width: 576px) {
-            #content nav .notification-menu,
-            #content nav .profile-menu {
-                width: 150px;
+            #sidebar {
+                width: 60px;
+            }
+            #content {
+                width: calc(100% - 60px);
+                left: 60px;
+            }
+            #content nav .nav-link {
+                display: none;
             }
             #content nav form .form-input input {
                 display: none;
@@ -782,13 +782,21 @@
             }
 
             #content main .table-data .head {
-                min-width: 420px;
+                min-width: unset;
             }
             #content main .table-data .order table {
                 min-width: 420px;
             }
-            #content main .table-data .todo .todo-list {
-                min-width: 420px;
+            
+            /* Calendar Widget Responsive Adjustments */
+            .calendar-week-day div,
+            .calendar-days div {
+                font-size: 14px;
+                height: 30px;
+                width: 30px;
+            }
+            .calendar-header {
+                font-size: 16px;
             }
         }
         /* Calendar Widget Styles */
@@ -969,7 +977,7 @@
     <a href="#" class="nav-link">Onboarding Checklist</a>
     <form action="#">
         <div class="form-input">
-            <input type="search" placeholder="Search...">
+            <input type="search" placeholder="Search Clients...">
             <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
         </div>
     </form>
