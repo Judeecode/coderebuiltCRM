@@ -50,10 +50,10 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
 
     <!-- Top Navigation -->
     <nav class="bg-dark text-white h-14 flex items-center justify-between px-4 shrink-0 z-20">
-        <!-- Left: Brand & Search -->
-        <div class="flex items-center space-x-6">
+        <!-- Left: Brand & Search & Nav -->
+        <div class="flex items-center space-x-6 h-full">
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-400">Logo</div>
+                <img src="../assets/coderebuiltlogo.png" alt="Code Rebuilt Logo" class="w-8 h-8 object-contain">
                 <div class="leading-tight">
                     <div class="font-bold text-sm">Code Rebuilt</div>
                     <div class="text-[10px] text-gray-400">MedSpa</div>
@@ -62,18 +62,18 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
             <div class="text-gray-400 hover:text-white cursor-pointer">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-        </div>
-
-        <!-- Center: Nav Links -->
-        <div class="hidden md:flex items-center space-x-1 h-full">
-            <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-white border-b-2 border-primary-light bg-white/5">Front Desk</a>
-            <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Calendar</a>
-            <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Messages</a>
-            <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Sales</a>
-            <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Clients</a>
-            <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Reports</a>
-            <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Marketing</a>
-            <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Manage</a>
+            
+            <!-- Nav Links -->
+            <div class="hidden md:flex items-center space-x-1 h-full ml-4">
+                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-white border-b-2 border-primary-light bg-white/5">Front Desk</a>
+                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Calendar</a>
+                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Messages</a>
+                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Sales</a>
+                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Clients</a>
+                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Reports</a>
+                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Marketing</a>
+                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Manage</a>
+            </div>
         </div>
 
         <!-- Right: Actions -->
@@ -114,10 +114,10 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
             <div class="flex flex-col">
                 <span class="text-[10px] text-gray-500 font-semibold uppercase tracking-wider">Today's Date</span>
                 <div class="flex items-center cursor-pointer group">
-                    <span class="text-sm font-bold text-gray-800 group-hover:text-primary-dark transition-colors">
-                        <?php echo date('D, M j'); ?>
-                    </span>
-                    <i class="fa-solid fa-chevron-down text-xs ml-2 text-gray-400 group-hover:text-primary-dark"></i>
+                <span class="text-sm font-bold text-primary-dark group-hover:text-[#245a8a] transition-colors">
+                    <?php echo date('D, M j'); ?>
+                </span>
+                <i class="fa-solid fa-chevron-down text-xs ml-2 text-gray-400 group-hover:text-primary-dark"></i>
                 </div>
             </div>
             <div class="h-8 w-px bg-gray-200 mx-2"></div>
@@ -145,12 +145,12 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
             </div>
 
             <div class="flex items-center bg-gray-100 rounded-md p-0.5 border border-gray-200">
-                <button class="px-3 py-1.5 bg-white text-gray-800 text-xs font-bold rounded shadow-sm">Schedule</button>
+                <button class="px-3 py-1.5 bg-white text-primary-dark text-xs font-bold rounded shadow-sm">Schedule</button>
                 <button class="px-3 py-1.5 text-gray-500 text-xs font-medium hover:text-gray-800">Cancellations</button>
                 <button class="px-3 py-1.5 text-gray-500 text-xs font-medium hover:text-gray-800">Waitlist (0)</button>
             </div>
 
-            <button class="bg-primary-dark hover:bg-primary-light text-white text-xs font-bold px-4 py-2 rounded shadow transition-colors duration-200 flex items-center">
+            <button class="bg-primary-light hover:bg-[#3b9ac4] text-white text-xs font-bold px-4 py-2 rounded shadow transition-colors duration-200 flex items-center">
                 New Appointment
             </button>
         </div>
@@ -163,7 +163,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
             <!-- Column 1: Unconfirmed -->
             <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
                 <div class="p-3 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold text-gray-800 text-sm">Unconfirmed</h3>
+                    <h3 class="font-bold text-primary-dark text-sm">Unconfirmed</h3>
                     <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">0</span>
                 </div>
                 <!-- Empty State -->
@@ -176,7 +176,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
             <!-- Column 2: Confirmed -->
             <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
                 <div class="p-3 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold text-gray-800 text-sm">Confirmed</h3>
+                    <h3 class="font-bold text-primary-dark text-sm">Confirmed</h3>
                     <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">0</span>
                 </div>
                 <div class="flex-1 p-4 bg-gray-50/50 flex flex-col items-center justify-center text-gray-400">
@@ -188,7 +188,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
             <!-- Column 3: Arrived -->
             <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
                 <div class="p-3 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold text-gray-800 text-sm">Arrived</h3>
+                    <h3 class="font-bold text-primary-dark text-sm">Arrived</h3>
                     <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">0</span>
                 </div>
                 <div class="flex-1 p-4 bg-gray-50/50 flex flex-col items-center justify-center text-gray-400">
@@ -200,7 +200,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
             <!-- Column 4: Completed -->
             <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
                 <div class="p-3 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold text-gray-800 text-sm">Completed</h3>
+                    <h3 class="font-bold text-primary-dark text-sm">Completed</h3>
                     <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">1</span>
                 </div>
                 <div class="flex-1 p-2 bg-gray-50/50 overflow-y-auto">
