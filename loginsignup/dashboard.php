@@ -28,7 +28,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
                 light: '#46ACD7',
                 dark: '#2D6FAA',
               },
-              dark: '#000000',
+              dark: '#163b5c',
             },
             fontFamily: {
               sans: ['Montserrat', 'sans-serif'],
@@ -129,6 +129,9 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
 
         <!-- Right: Controls -->
         <div class="flex items-center space-x-3">
+            <button class="bg-dark text-white text-xs px-4 py-2 rounded-full shadow-lg hover:bg-opacity-90 flex items-center space-x-2 mr-4">
+                <span>Onboarding Checklist</span>
+            </button>
             <div class="flex items-center text-sm text-gray-600 mr-2">
                 <span class="mr-2 text-gray-500">Staff:</span>
                 <button class="font-semibold hover:text-primary-dark flex items-center">
@@ -160,6 +163,36 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
     <main class="flex-1 overflow-x-auto overflow-y-hidden p-4">
         <div class="flex h-full space-x-4 min-w-[1024px]">
             
+            <!-- Column 4: Completed -->
+            <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
+                <div class="p-3 border-b border-gray-100 flex justify-between items-center">
+                    <h3 class="font-bold text-primary-dark text-sm">Completed</h3>
+                    <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">1</span>
+                </div>
+                <div class="flex-1 p-2 bg-gray-50/50 overflow-y-auto">
+                    <!-- Example Card -->
+                   <div class="bg-white p-3 rounded border border-gray-200 shadow-sm mb-2 hover:shadow-md transition-shadow cursor-pointer flex items-start space-x-3">
+                       <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+                           <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="User" class="w-full h-full object-cover">
+                       </div>
+                       <div class="flex-1 min-w-0">
+                           <div class="flex justify-between items-start">
+                               <h4 class="text-sm font-bold text-gray-800 truncate">Jodie X</h4>
+                               <div class="flex space-x-1">
+                                   <i class="fa-solid fa-star text-yellow-400 text-[10px]"></i>
+                                   <i class="fa-solid fa-star text-yellow-400 text-[10px]"></i>
+                               </div>
+                           </div>
+                           <p class="text-xs text-gray-500 mb-1">12:30pm - 12:40pm</p>
+                           <div class="flex items-center space-x-2">
+                               <span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
+                               <span class="text-[10px] text-gray-400 uppercase tracking-wide">Consultation</span>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+            </div>
+
             <!-- Column 1: Unconfirmed -->
             <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
                 <div class="p-3 border-b border-gray-100 flex justify-between items-center">
@@ -196,46 +229,11 @@ if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
                      <span class="text-xs">No arrivals yet</span>
                 </div>
             </div>
-
-            <!-- Column 4: Completed -->
-            <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
-                <div class="p-3 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold text-primary-dark text-sm">Completed</h3>
-                    <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">1</span>
-                </div>
-                <div class="flex-1 p-2 bg-gray-50/50 overflow-y-auto">
-                    <!-- Example Card -->
-                   <div class="bg-white p-3 rounded border border-gray-200 shadow-sm mb-2 hover:shadow-md transition-shadow cursor-pointer flex items-start space-x-3">
-                       <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
-                           <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="User" class="w-full h-full object-cover">
-                       </div>
-                       <div class="flex-1 min-w-0">
-                           <div class="flex justify-between items-start">
-                               <h4 class="text-sm font-bold text-gray-800 truncate">Jodie X</h4>
-                               <div class="flex space-x-1">
-                                   <i class="fa-solid fa-star text-yellow-400 text-[10px]"></i>
-                                   <i class="fa-solid fa-star text-yellow-400 text-[10px]"></i>
-                               </div>
-                           </div>
-                           <p class="text-xs text-gray-500 mb-1">12:30pm - 12:40pm</p>
-                           <div class="flex items-center space-x-2">
-                               <span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
-                               <span class="text-[10px] text-gray-400 uppercase tracking-wide">Consultation</span>
-                           </div>
-                       </div>
-                   </div>
-                </div>
-            </div>
-
         </div>
     </main>
     
     <!-- Floating Action / Footer if needed -->
-    <div class="absolute bottom-6 left-6">
-        <button class="bg-black text-white text-xs px-4 py-2 rounded-full shadow-lg hover:bg-gray-800 flex items-center space-x-2">
-            <span>Onboarding Checklist</span>
-        </button>
-    </div>
+
 
 </body>
 </html>
