@@ -6,8 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Welcome back! Sign in to your account with our beautiful and modern login page.">
     <title>Welcome Back - Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#46ACD7',
+                            dark: '#2D6FAA',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
         .circles {
             position: absolute;
             top: 0;
@@ -128,18 +150,22 @@
     <div class="relative min-h-screen flex ">
         <div
             class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
-            <div class="sm:w-1/2 xl:w-2/5 h-full hidden md:flex flex-auto items-center justify-start p-10 overflow-hidden bg-purple-900 text-white bg-no-repeat bg-cover relative"
+            <div class="sm:w-1/2 xl:w-2/5 h-full hidden md:flex flex-auto items-center justify-start p-10 overflow-hidden bg-primary-dark text-white bg-no-repeat bg-cover relative"
                 style="background-image: url(assets/bgimage.webp);">
-                <div class="absolute bg-gradient-to-b from-blue-900 to-gray-900 opacity-75 inset-0 z-0"></div>
+                <div class="absolute bg-gradient-to-b from-primary-dark to-gray-900 opacity-75 inset-0 z-0"></div>
                 <div class="absolute triangle  min-h-screen right-0 w-16" style=""></div>
                 <div class="flex absolute top-5 left-1 text-center text-gray-100 z-20">
                     <img src="assets/coderebuiltlogo.png" alt="Code Rebuilt Logo"
                         class="object-contain h-32 drop-shadow-2xl filter brightness-110">
                 </div>
 
-                <div class="w-full max-w-lg z-10 space-y-8">
+                <div class="w-full max-w-lg z-10 space-y-8 mt-24">
                     <!-- Main Heading with Gradient Accent -->
                     <div class="space-y-4">
+                        <div
+                            class="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+                            <span class="text-sm font-semibold text-white/90">🏥 CodeRebuild MedSpa</span>
+                        </div>
                         <h1 class="text-5xl xl:text-6xl font-extrabold leading-tight">
                             <span
                                 class="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
@@ -216,7 +242,7 @@
                         <a href="#" target="_blank"
                             class="w-11 h-11 items-center justify-center inline-flex rounded-2xl font-bold text-lg   bg-blue-900 hover:shadow-lg cursor-pointer transition ease-in duration-300"><img
                                 class="w-4 h-4"
-                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0xNS45OTcgMy45ODVoMi4xOTF2LTMuODE2Yy0uMzc4LS4wNTItMS42NzgtLjE2OS0zLjE5Mi0uMTY5LTMuMTU5IDAtNS4zMjMgMS45ODctNS4zMjMgNS42Mzl2My4zNjFoLTMuNDg2djQuMjY2aDMuNDg2djEwLjczNGg0LjI3NHYtMTAuNzMzaDMuMzQ1bC41MzEtNC4yNjZoLTMuODc3di0yLjkzOWMuMDAxLTEuMjMzLjMzMy0yLjA3NyAyLjA1MS0yLjA3N3oiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9zdmc+">
+                                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im0xNS45OTcgMy45ODVoMi4xOTF2LTMuODE2Yy0uMzc4LS4wNTItMS42NzgtLjE2OS0zLjE5Mi0uMTY5LTMuMTU5IDAtNS4zMjMgMS45ODctNS4zMjMgNS42Mzl2My4zNjFoLTMuNDg2djQuMjY2aDMuNDg2djEwLjczNGg0LjI3NHYtMTAuNzMzaDMuMzQ1bC41MzEtNC4yNjZoLTMuODc3di0yLjkyOWMuMDAxLTEuMjMzLjMzMy0yLjA3NyAyLjA1MS0yLjA3N3oiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9zdmc+">
                         </a><a href="#" target="_blank"
                             class="w-11 h-11 items-center justify-center inline-flex rounded-2xl font-bold text-lg bg-white border border-gray-200 hover:shadow-lg cursor-pointer transition ease-in duration-300">
                             <svg class="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -251,7 +277,7 @@
                         <div class="relative">
                             <label class="ml-3 text-sm font-bold text-gray-700 tracking-wide">Email</label>
                             <input
-                                class=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                                class=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-primary-dark"
                                 type="email" name="email" placeholder="mail@gmail.com" value="">
                         </div>
                         <div class="mt-8 content-center">
@@ -259,33 +285,33 @@
                                 Password
                             </label>
                             <input
-                                class="w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500"
+                                class="w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-primary-dark"
                                 type="password" name="password" placeholder="Enter your password" value="">
                         </div>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <input id="remember_me" name="remember_me" type="checkbox"
-                                    class="h-4 w-4 bg-blue-500 focus:ring-blue-400 border-gray-300 rounded">
+                                    class="h-4 w-4 bg-primary-dark focus:ring-primary-light border-gray-300 rounded">
                                 <label for="remember_me" class="ml-2 block text-sm text-gray-900">
                                     Remember me
                                 </label>
                             </div>
                             <div class="text-sm">
-                                <a href="#" class="text-indigo-400 hover:text-blue-500">
+                                <a href="#" class="text-primary-dark hover:text-primary-light">
                                     Forgot your password?
                                 </a>
                             </div>
                         </div>
                         <div>
                             <button type="submit"
-                                class="w-full flex justify-center bg-gradient-to-r from-indigo-500 to-blue-600  hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                                class="w-full flex justify-center bg-gradient-to-r from-primary-dark to-primary-light  hover:bg-gradient-to-l hover:from-primary-light hover:to-primary-dark text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
                                 Sign in
                             </button>
                         </div>
                         <p class="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
                             <span>Don't have an account?</span>
                             <a href="loginsignup/signup.html"
-                                class="text-indigo-400 hover:text-blue-500 no-underline hover:underline cursor-pointer transition ease-in duration-300">Sign
+                                class="text-primary-dark hover:text-primary-light no-underline hover:underline cursor-pointer transition ease-in duration-300">Sign
                                 up</a>
                         </p>
                     </form>
