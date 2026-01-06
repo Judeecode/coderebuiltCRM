@@ -1,245 +1,1351 @@
-<?php
-session_start();
-
-if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Code Rebuilt CRM</title>
-    
-    <!-- Google Fonts: Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: {
-                light: '#46ACD7',
-                dark: '#2D6FAA',
-              },
-              dark: '#163b5c',
-            },
-            fontFamily: {
-              sans: ['Montserrat', 'sans-serif'],
-            }
-          }
-        }
-      }
-    </script>
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	
+    <!-- Fixed: user had this as a stylesheet link -->
+    <script src='https://unpkg.com/boxicons@2.1.4/dist/boxicons.js'></script>
+
+	<title>MedSpa CRM</title>
+    
     <style>
-        body { font-family: 'Montserrat', sans-serif; }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #bbb; }
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        :root {
+            --poppins: 'Poppins', sans-serif;
+            --lato: 'Lato', sans-serif;
+
+            --light: #F9F9F9;
+            --blue: #3C91E6;
+            --light-blue: #CFE8FF;
+            --grey: #eee;
+            --dark-grey: #AAAAAA;
+            --dark: #342E37;
+            --red: #DB504A;
+            --yellow: #FFCE26;
+            --light-yellow: #FFF2C6;
+            --orange: #FD7238;
+            --light-orange: #FFE0D3;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body.dark {
+            --light: #0C0C1E;
+            --grey: #060714;
+            --dark: #FBFBFB;
+        }
+
+        body {
+            background: var(--grey);
+            overflow-x: hidden;
+        }
+
+
+
+
+
+        /* SIDEBAR */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100%;
+            background: var(--light);
+            z-index: 2000;
+            font-family: var(--lato);
+            transition: .3s ease;
+            overflow-x: hidden;
+            scrollbar-width: none;
+        }
+        #sidebar::--webkit-scrollbar {
+            display: none;
+        }
+        #sidebar.hide {
+            width: 60px;
+        }
+        #sidebar .brand {
+            font-size: 24px;
+            font-weight: 700;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            color: var(--blue);
+            position: sticky;
+            top: 0;
+            left: 0;
+            background: var(--light);
+            z-index: 500;
+            padding-bottom: 20px;
+            box-sizing: content-box;
+        }
+        #sidebar .brand .bx {
+            min-width: 60px;
+            display: flex;
+            justify-content: center;
+        }
+        #sidebar .side-menu {
+            width: 100%;
+            margin-top: 48px;
+        }
+        #sidebar .side-menu li {
+            height: 48px;
+            background: transparent;
+            margin-left: 6px;
+            border-radius: 48px 0 0 48px;
+            padding: 4px;
+        }
+        #sidebar .side-menu li.active {
+            background: var(--grey);
+            position: relative;
+        }
+        #sidebar .side-menu li.active::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            top: -40px;
+            right: 0;
+            box-shadow: 20px 20px 0 var(--grey);
+            z-index: -1;
+        }
+        #sidebar .side-menu li.active::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            bottom: -40px;
+            right: 0;
+            box-shadow: 20px -20px 0 var(--grey);
+            z-index: -1;
+        }
+        #sidebar .side-menu li a {
+            width: 100%;
+            height: 100%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            border-radius: 48px;
+            font-size: 16px;
+            color: var(--dark);
+            white-space: nowrap;
+            overflow-x: hidden;
+        }
+        #sidebar .side-menu.top li.active a {
+            color: var(--blue);
+        }
+        #sidebar.hide .side-menu li a {
+            width: calc(48px - (4px * 2));
+            transition: width .3s ease;
+        }
+        #sidebar .side-menu li a.logout {
+            color: var(--red);
+        }
+        #sidebar .side-menu.top li a:hover {
+            color: var(--blue);
+        }
+        #sidebar .side-menu li a .bx {
+            min-width: calc(60px  - ((4px + 6px) * 2));
+            display: flex;
+            justify-content: center;
+        }
+
+        #sidebar .side-menu.bottom li:nth-last-of-type(-n+2) { /* Son iki <li>'yi seç */
+        position: absolute; /* Ebeveynine göre konumlandır */
+        bottom: 0; /* En alt */
+        left: 0;
+        right: 0;
+        text-align: center;
+        }
+
+        /* Birbirinin üzerine binmesini engellemek için */
+        #sidebar .side-menu.bottom li:nth-last-of-type(2) {
+        bottom: 40px; /* İkinci son öğeyi yukarı kaydır */
+        }
+        /* SIDEBAR */
+
+
+
+
+
+        /* CONTENT */
+        #content {
+            position: relative;
+            width: calc(100% - 220px);
+            left: 220px;
+            transition: .3s ease;
+        }
+        #sidebar.hide ~ #content {
+            width: calc(100% - 60px);
+            left: 60px;
+        }
+
+
+
+
+        /* NAVBAR */
+        #content nav {
+            height: 56px;
+            background: var(--light);
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            grid-gap: 24px;
+            font-family: var(--lato);
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        #content nav::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            bottom: -40px;
+            left: 0;
+            border-radius: 50%;
+            box-shadow: -20px -20px 0 var(--light);
+        }
+        #content nav a {
+            color: var(--dark);
+        }
+        #content nav .bx.bx-menu {
+            cursor: pointer;
+            color: var(--dark);
+        }
+        #content nav .nav-link {
+            font-size: 16px;
+            transition: .3s ease;
+        }
+        #content nav .nav-link:hover {
+            color: var(--blue);
+        }
+        #content nav form {
+            max-width: 400px;
+            width: 100%;
+            margin-right: auto;
+        }
+        #content nav form .form-input {
+            display: flex;
+            align-items: center;
+            height: 36px;
+        }
+        #content nav form .form-input input {
+            flex-grow: 1;
+            padding: 0 16px;
+            height: 100%;
+            border: none;
+            background: var(--grey);
+            border-radius: 36px 0 0 36px;
+            outline: none;
+            width: 100%;
+            color: var(--dark);
+        }
+        #content nav form .form-input button {
+            width: 36px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--blue);
+            color: var(--light);
+            font-size: 18px;
+            border: none;
+            outline: none;
+            border-radius: 0 36px 36px 0;
+            cursor: pointer;
+        }
+        #content nav .notification {
+            font-size: 20px;
+            position: relative;
+        }
+        #content nav .notification .num {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--light);
+            background: var(--red);
+            color: var(--light);
+            font-weight: 700;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Notification Dropdown */
+        #content nav .notification-menu {
+            display: none;
+            position: absolute;
+            top: 56px;
+            right: 0;
+            background: var(--light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            width: 250px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 9999;
+            font-family: var(--lato);
+        }
+
+        #content nav .notification-menu ul {
+            list-style: none;
+            padding: 10px;
+            margin: 0;
+        }
+
+        #content nav .notification-menu li {
+            padding: 10px;
+            border-bottom: 1px solid var(--grey);
+            color: var(--dark);
+        }
+
+        #content nav .notification-menu li:hover {
+            background-color: var(--light-blue);
+            color: var(--dark);
+        }
+        #content nav .notification-menu li:hover a{
+            background-color: var(--dark-grey);
+            color: var(--light);
+        }
+        body.dark #content nav .notification-menu li:hover {
+            background-color: var(--light-blue);
+            color: var(--light);
+        }
+        body.dark #content nav .notification-menu li a{
+            background-color: var(--dark-grey);
+            color: var(--light);
+        }
+        #content nav .profile img {
+            width: 36px;
+            height: 36px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        #content nav .profile-menu {
+            display: none;
+            position: absolute;
+            top: 56px;
+            right: 0;
+            background: var(--light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            width: 200px;
+            z-index: 9999;
+            font-family: var(--lato);
+        }
+
+        #content nav .profile-menu ul {
+            list-style: none;
+            padding: 10px;
+            margin: 0;
+        }
+
+        #content nav .profile-menu li {
+            padding: 10px;
+            border-bottom: 1px solid var(--grey);
+        }
+
+        #content nav .profile-menu li:hover {
+            background-color: var(--light-blue);
+            color: var(--dark);
+        }
+        #content nav .profile-menu li a {
+            color: var(--dark);
+            font-size: 16px;
+        }
+        body.dark #content nav .profile-menu li:hover a {
+            color: var(--light);
+        }
+        body.dark #content nav .profile-menu li a {
+            color: var(--dark);
+        }
+        #content nav .profile-menu li:hover a {
+            color: var(--dark);
+        }
+        /* Active State for Menus */
+        #content nav .notification-menu.show,
+        #content nav .profile-menu.show {
+            display: block;
+        }
+
+        #content nav .switch-mode {
+            display: block;
+            min-width: 50px;
+            height: 25px;
+            border-radius: 25px;
+            background: var(--grey);
+            cursor: pointer;
+            position: relative;
+        }
+        #content nav .switch-mode::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            bottom: 2px;
+            width: calc(25px - 4px);
+            background: var(--blue);
+            border-radius: 50%;
+            transition: all .3s ease;
+        }
+        #content nav #switch-mode:checked + .switch-mode::before {
+            left: calc(100% - (25px - 4px) - 2px);
+        }
+
+
+        #content nav .swith-lm {
+            background-color:  var(--grey);
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 3px;
+            position: relative;
+            height: 21px;
+            width: 45px;
+            transform: scale(1.5);
+        }
+
+        #content nav .swith-lm .ball {
+            background-color: var(--blue);
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            height: 20px;
+            width: 20px;
+            transform: translateX(0px);
+            transition: transform 0.2s linear;
+        }
+
+        #content nav .checkbox:checked + .swith-lm .ball {
+            transform: translateX(22px);
+        }
+        .bxs-moon {
+            color: var(--yellow);
+        }
+
+        .bx-sun {
+            color: var(--orange);
+            animation: shakeOn .7s;
+        }
+
+
+
+        /* NAVBAR */
+
+
+
+
+
+        /* MAIN */
+        #content main {
+            width: 100%;
+            padding: 36px 24px;
+            font-family: var(--poppins);
+            max-height: calc(100vh - 56px);
+            overflow-y: auto;
+        }
+        #content main .head-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            grid-gap: 16px;
+            flex-wrap: wrap;
+        }
+        #content main .head-title .left h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        #content main .head-title .left .breadcrumb {
+            display: flex;
+            align-items: center;
+            grid-gap: 16px;
+        }
+        #content main .head-title .left .breadcrumb li {
+            color: var(--dark);
+        }
+        #content main .head-title .left .breadcrumb li a {
+            color: var(--dark-grey);
+            pointer-events: none;
+        }
+        #content main .head-title .left .breadcrumb li a.active {
+            color: var(--blue);
+            pointer-events: unset;
+        }
+        #content main .head-title .btn-download {
+            height: 36px;
+            padding: 0 16px;
+            border-radius: 36px;
+            background: var(--blue);
+            color: var(--light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            grid-gap: 10px;
+            font-weight: 500;
+        }
+
+
+
+
+        #content main .box-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-gap: 24px;
+            margin-top: 36px;
+        }
+        #content main .box-info li {
+            padding: 24px;
+            background: var(--light);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            grid-gap: 24px;
+        }
+        #content main .box-info li .bx {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            font-size: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #content main .box-info li:nth-child(1) .bx {
+            background: var(--light-blue);
+            color: var(--blue);
+        }
+        #content main .box-info li:nth-child(2) .bx {
+            background: var(--light-yellow);
+            color: var(--yellow);
+        }
+        #content main .box-info li:nth-child(3) .bx {
+            background: var(--light-orange);
+            color: var(--orange);
+        }
+        #content main .box-info li .text h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        #content main .box-info li .text p {
+            color: var(--dark);	
+        }
+
+
+
+
+
+        #content main .table-data {
+            display: flex;
+            flex-wrap: wrap;
+            grid-gap: 24px;
+            margin-top: 24px;
+            width: 100%;
+            color: var(--dark);
+        }
+        #content main .table-data > div {
+            border-radius: 20px;
+            background: var(--light);
+            padding: 24px;
+            overflow-x: auto;
+        }
+        #content main .table-data .head {
+            display: flex;
+            align-items: center;
+            grid-gap: 16px;
+            margin-bottom: 24px;
+        }
+        #content main .table-data .head h3 {
+            margin-right: auto;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        #content main .table-data .head .bx {
+            cursor: pointer;
+        }
+
+        #content main .table-data .order {
+            flex-grow: 1;
+            flex-basis: 500px;
+        }
+        #content main .table-data .order table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #content main .table-data .order table th {
+            padding-bottom: 12px;
+            font-size: 13px;
+            text-align: left;
+            border-bottom: 1px solid var(--grey);
+        }
+        #content main .table-data .order table td {
+            padding: 16px 0;
+        }
+        #content main .table-data .order table tr td:first-child {
+            display: flex;
+            align-items: center;
+            grid-gap: 12px;
+            padding-left: 6px;
+        }
+        #content main .table-data .order table td img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        #content main .table-data .order table tbody tr:hover {
+            background: var(--grey);
+        }
+        #content main .table-data .order table tr td .status {
+            font-size: 10px;
+            padding: 6px 16px;
+            color: var(--light);
+            border-radius: 20px;
+            font-weight: 700;
+        }
+        #content main .table-data .order table tr td .status.completed {
+            background: var(--blue);
+        }
+        #content main .table-data .order table tr td .status.process {
+            background: var(--yellow);
+        }
+        #content main .table-data .order table tr td .status.pending {
+            background: var(--orange);
+        }
+
+
+        #content main .table-data .todo {
+            flex-grow: 0.3;
+            flex-basis: 300px;
+            min-width: 360px;
+            overflow: hidden;
+        }
+        #content main .table-data .todo .todo-list {
+            width: 100%;
+        }
+        #content main .table-data .todo .todo-list li {
+            width: 100%;
+            margin-bottom: 16px;
+            background: var(--grey);
+            border-radius: 10px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #content main .table-data .todo .todo-list li .bx {
+            cursor: pointer;
+        }
+        #content main .table-data .todo .todo-list li.completed {
+            border-left: 10px solid var(--blue);
+        }
+        #content main .table-data .todo .todo-list li.not-completed {
+            border-left: 10px solid var(--orange);
+        }
+        #content main .table-data .todo .todo-list li:last-child {
+            margin-bottom: 0;
+        }
+        /* MAIN */
+        /* CONTENT */
+        #content main .menu, #content nav .menu {
+
+            display: none;
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 5px;
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        #content main .menu a , #content nav .menu a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 8px 16px;
+        }
+
+        #content main .menu a:hover , #content nav .menu a:hover {
+            background-color: #444;
+        }
+                
+        #content main .menu-link , #content nav .menu-link {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        #content main .menu-link:hover, #content nav .menu-link:hover {
+            text-decoration: underline;
+        }
+
+
+
+
+
+        /* Media Query for Smaller Screens */
+        @media screen and (max-width: 768px) {
+            #sidebar {
+                width: 200px;
+            }
+
+            #content {
+                width: calc(100% - 200px);
+                left: 200px;
+            }
+
+            #content nav .nav-link {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            #sidebar {
+                width: 60px;
+            }
+            #content {
+                width: calc(100% - 60px);
+                left: 60px;
+            }
+            #content nav .nav-link {
+                display: none;
+            }
+            #content nav form .form-input input {
+                display: none;
+            }
+
+            #content nav form .form-input button {
+                width: auto;
+                height: auto;
+                background: transparent;
+                border-radius: none;
+                color: var(--dark);
+            }
+
+            #content nav form.show .form-input input {
+                display: block;
+                width: 100%;
+            }
+            #content nav form.show .form-input button {
+                width: 36px;
+                height: 100%;
+                border-radius: 0 36px 36px 0;
+                color: var(--light);
+                background: var(--red);
+            }
+
+            #content nav form.show ~ .notification,
+            #content nav form.show ~ .profile {
+                display: none;
+            }
+
+            #content main .box-info {
+                grid-template-columns: 1fr;
+            }
+
+            #content main .table-data .head {
+                min-width: unset;
+            }
+            #content main .table-data .order table {
+                min-width: 420px;
+            }
+            
+            /* Calendar Widget Responsive Adjustments */
+            .calendar-week-day div,
+            .calendar-days div {
+                font-size: 14px;
+                height: 30px;
+                width: 30px;
+            }
+            .calendar-header {
+                font-size: 16px;
+            }
+        }
+        /* Calendar Widget Styles */
+        .calendar-widget {
+            width: 100%;
+            height: 100%;
+            background-color: var(--light);
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .month-picker {
+            cursor: pointer;
+        }
+
+        .year-picker {
+            display: flex;
+            align-items: center;
+        }
+
+        .year-change {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .year-change:hover {
+            background-color: var(--light-blue);
+        }
+
+        .calendar-body {
+            padding: 10px;
+        }
+
+        .calendar-week-day {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            font-weight: 600;
+            height: 50px;
+        }
+
+        .calendar-week-day div {
+            display: grid;
+            place-items: center;
+            color: var(--dark-grey);
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            color: var(--dark);
+        }
+
+        .calendar-days div {
+            width: 37px;
+            height: 37px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            position: relative;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .calendar-days div:hover {
+            transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+            background-color: var(--light-blue);
+        }
+
+        .calendar-days div.curr-date {
+            background-color: var(--blue);
+            color: var(--light);
+            border-radius: 50%;
+        }
     </style>
 </head>
-<body class="flex flex-col h-screen bg-gray-50 overflow-hidden">
+<body>
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<div style="min-width: 60px; display: flex; justify-content: center; align-items: center;">
+				<img src="../assets/coderebuiltlogo.png" style="width: 40px; height: auto;" alt="CodeRebuilt Logo">
+			</div>
+			<span class="text">MedSpa-CRM</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="#">
+					<i class='bx bxs-dashboard bx-sm' ></i>
+					<span class="text">Front Desk</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-calendar-check bx-sm' ></i>
+					<span class="text">Calendar</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-message-dots bx-sm' ></i>
+					<span class="text">Messages</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-dollar-circle bx-sm' ></i>
+					<span class="text">Sales</span>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<i class='bx bxs-user-detail bx-sm' ></i>
+					<span class="text">Clients</span>
+				</a>
+			</li>
+            <li>
+				<a href="#">
+					<i class='bx bxs-report bx-sm' ></i>
+					<span class="text">Reports</span>
+				</a>
+			</li>
+            <li>
+				<a href="#">
+					<i class='bx bxs-megaphone bx-sm' ></i>
+					<span class="text">Marketing</span>
+				</a>
+			</li>
+            <li>
+				<a href="#">
+					<i class='bx bxs-briefcase-alt-2 bx-sm' ></i>
+					<span class="text">Manage</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu bottom">
+			<li>
+				<a href="#">
+					<i class='bx bxs-cog bx-sm bx-spin-hover' ></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="logout">
+					<i class='bx bx-power-off bx-sm bx-burst-hover' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
 
-    <!-- Top Navigation -->
-    <nav class="bg-dark text-white h-14 flex items-center justify-between px-4 shrink-0 z-20">
-        <!-- Left: Brand & Search & Nav -->
-        <div class="flex items-center space-x-6 h-full">
-            <div class="flex items-center space-x-3">
-                <img src="../assets/coderebuiltlogo.png" alt="Code Rebuilt Logo" class="w-8 h-8 object-contain">
-                <div class="leading-tight">
-                    <div class="font-bold text-sm">Code Rebuilt</div>
-                    <div class="text-[10px] text-gray-400">MedSpa</div>
-                </div>
-            </div>
-            <div class="text-gray-400 hover:text-white cursor-pointer">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-            
-            <!-- Nav Links -->
-            <div class="hidden md:flex items-center space-x-1 h-full ml-4">
-                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-white border-b-2 border-primary-light bg-white/5">Front Desk</a>
-                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Calendar</a>
-                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Messages</a>
-                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Sales</a>
-                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Clients</a>
-                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Reports</a>
-                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Marketing</a>
-                <a href="#" class="px-3 h-full flex items-center text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-colors">Manage</a>
-            </div>
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+<nav>
+    <i class='bx bx-menu bx-sm' ></i>
+    <a href="#" class="nav-link">Onboarding Checklist</a>
+    <form action="#">
+        <div class="form-input">
+            <input type="search" placeholder="Search Clients...">
+            <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
         </div>
+    </form>
+    <input type="checkbox" class="checkbox" id="switch-mode" hidden />
+    <label class="swith-lm" for="switch-mode">
+        <i class="bx bxs-moon"></i>
+        <i class="bx bx-sun"></i>
+        <div class="ball"></div>
+    </label>
 
-        <!-- Right: Actions -->
-        <div class="flex items-center space-x-4 text-gray-400">
-            <button class="hover:text-white transition-colors"><i class="fa-regular fa-clock text-lg"></i></button>
-            <button class="hover:text-white transition-colors relative">
-                <i class="fa-solid fa-bell text-lg"></i>
-                <span class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
-            <button class="hover:text-white transition-colors"><i class="fa-solid fa-phone text-lg"></i></button>
-            <button class="hover:text-white transition-colors"><i class="fa-solid fa-gear text-lg"></i></button>
-            
-            <!-- User Profile Dropdown -->
-            <div class="relative group">
-                <button class="flex items-center space-x-2 hover:text-white transition-colors focus:outline-none">
-                    <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white font-bold text-xs border-2 border-gray-500">
-                        <?php echo strtoupper(substr($_SESSION['email'], 0, 1)); ?>
-                    </div>
-                </button>
-                <!-- Dropdown Menu -->
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-gray-700 hidden group-hover:block border border-gray-200 z-50">
-                    <div class="px-4 py-2 border-b border-gray-100">
-                        <p class="text-xs text-gray-500">Signed in as</p>
-                        <p class="text-xs font-bold truncate"><?php echo $_SESSION['email']; ?></p>
-                    </div>
-                    <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">My Settings</a>
-                    <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">Support Center</a>
-                    <a href="logout.php" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Sign Out</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Sub-Header / Toolbar -->
-    <div class="bg-white border-b border-gray-200 h-14 flex items-center justify-between px-4 shrink-0 shadow-sm z-10">
-        <!-- Left: Date & View -->
-        <div class="flex items-center space-x-4">
-            <div class="flex flex-col">
-                <span class="text-[10px] text-gray-500 font-semibold uppercase tracking-wider">Today's Date</span>
-                <div class="flex items-center cursor-pointer group">
-                <span class="text-sm font-bold text-primary-dark group-hover:text-[#245a8a] transition-colors">
-                    <?php echo date('D, M j'); ?>
-                </span>
-                <i class="fa-solid fa-chevron-down text-xs ml-2 text-gray-400 group-hover:text-primary-dark"></i>
-                </div>
-            </div>
-            <div class="h-8 w-px bg-gray-200 mx-2"></div>
-            <!-- Search Clients -->
-            <div class="relative">
-                <input type="text" placeholder="Filter clients" class="pl-2 pr-4 py-1.5 text-sm border-none focus:ring-0 text-gray-600 bg-transparent placeholder-gray-400 w-48">
-            </div>
-        </div>
-
-        <!-- Right: Controls -->
-        <div class="flex items-center space-x-3">
-            <button class="bg-dark text-white text-xs px-4 py-2 rounded-full shadow-lg hover:bg-opacity-90 flex items-center space-x-2 mr-4">
-                <span>Onboarding Checklist</span>
-            </button>
-            <div class="flex items-center text-sm text-gray-600 mr-2">
-                <span class="mr-2 text-gray-500">Staff:</span>
-                <button class="font-semibold hover:text-primary-dark flex items-center">
-                    All <i class="fa-solid fa-chevron-down text-xs ml-1.5 text-gray-400"></i>
-                </button>
-            </div>
-            
-            <div class="flex items-center bg-gray-100 rounded-md p-0.5 border border-gray-200">
-                <button class="px-3 py-1 bg-white text-gray-800 text-xs font-bold rounded shadow-sm border border-gray-200">Today</button>
-                <div class="flex items-center mx-1">
-                    <button class="p-1 px-2 text-gray-500 hover:text-primary-dark"><i class="fa-solid fa-chevron-left text-xs"></i></button>
-                    <button class="p-1 px-2 text-gray-500 hover:text-primary-dark"><i class="fa-solid fa-chevron-right text-xs"></i></button>
-                </div>
-            </div>
-
-            <div class="flex items-center bg-gray-100 rounded-md p-0.5 border border-gray-200">
-                <button class="px-3 py-1.5 bg-white text-primary-dark text-xs font-bold rounded shadow-sm">Schedule</button>
-                <button class="px-3 py-1.5 text-gray-500 text-xs font-medium hover:text-gray-800">Cancellations</button>
-                <button class="px-3 py-1.5 text-gray-500 text-xs font-medium hover:text-gray-800">Waitlist (0)</button>
-            </div>
-
-            <button class="bg-primary-light hover:bg-[#3b9ac4] text-white text-xs font-bold px-4 py-2 rounded shadow transition-colors duration-200 flex items-center">
-                New Appointment
-            </button>
-        </div>
+    <!-- Notification Bell -->
+    <a href="#" class="notification" id="notificationIcon">
+        <i class='bx bxs-bell bx-tada-hover' ></i>
+        <span class="num">8</span>
+    </a>
+    <div class="notification-menu" id="notificationMenu">
+        <ul>
+            <li>New message from John</li>
+            <li>Your order has been shipped</li>
+            <li>New comment on your post</li>
+            <li>Update available for your app</li>
+            <li>Reminder: Meeting at 3PM</li>
+        </ul>
     </div>
 
-    <!-- Main Content Board -->
-    <main class="flex-1 overflow-x-auto overflow-y-hidden p-4">
-        <div class="flex h-full space-x-4 min-w-[1024px]">
+    <!-- Profile Menu -->
+    <a href="#" class="profile" id="profileIcon">
+        <img src="https://placehold.co/600x400/png" alt="Profile">
+    </a>
+    <div class="profile-menu" id="profileMenu">
+        <ul>
+            <li><a href="#">My Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Log Out</a></li>
+        </ul>
+    </div>
+</nav>
+<!-- NAVBAR -->
+
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						<li>
+							<a class="active" href="#">Home</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar' ></i>
+					<span class="text">
+						<h3>Unconfirmed</h3>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-calendar-check' ></i>
+					<span class="text">
+						<h3>Confirmed</h3>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-user-check' ></i>
+					<span class="text">
+						<h3>Arrived</h3>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Staffs</h3>
+						<i class='bx bx-search' ></i>
+						<i class='bx bx-filter' ></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Staff Name</th>
+								<th>Role</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<i class='bx bxs-user-circle' style='font-size: 36px; color: var(--dark-grey);'></i>
+									<p>Micheal John</p>
+								</td>
+								<td>Esthetician</td>
+								<td><span class="status completed">Available</span></td>
+							</tr>
+							<tr>
+								<td>
+									<i class='bx bxs-user-circle' style='font-size: 36px; color: var(--dark-grey);'></i>
+									<p>Ryan Doe</p>
+								</td>
+								<td>Receptionist</td>
+								<td><span class="status pending">On Leave</span></td>
+							</tr>
+							<tr>
+								<td>
+									<i class='bx bxs-user-circle' style='font-size: 36px; color: var(--dark-grey);'></i>
+									<p>Tarry White</p>
+								</td>
+								<td>Therapist</td>
+								<td><span class="status process">Busy</span></td>
+							</tr>
+							<tr>
+								<td>
+									<i class='bx bxs-user-circle' style='font-size: 36px; color: var(--dark-grey);'></i>
+									<p>Selma</p>
+								</td>
+								<td>Manager</td>
+								<td><span class="status completed">Available</span></td>
+							</tr>
+							<tr>
+								<td>
+									<i class='bx bxs-user-circle' style='font-size: 36px; color: var(--dark-grey);'></i>
+									<p>Andreas Doe</p>
+								</td>
+								<td>Dermatologist</td>
+								<td><span class="status process">Busy</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+                    <div class="head">
+						<h3>Calendar</h3>
+						<i class='bx bx-filter' ></i>
+					</div>
+                    <div class="calendar-widget">
+                        <div class="calendar-header">
+                            <span class="month-picker" id="month-picker"></span>
+                            <div class="year-picker">
+                                <span class="year-change" id="prev-month">
+                                    <i class='bx bx-chevron-left'></i>
+                                </span>
+                                <span class="year-change" id="next-month">
+                                    <i class='bx bx-chevron-right'></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="calendar-body">
+                            <div class="calendar-week-day">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+                            <div class="calendar-days" id="calendar-days"></div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	
+
+	<script>
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
+
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            })
+        });
+
+        // Calendar Logic
+        const calendarDays = document.getElementById('calendar-days');
+        const monthPicker = document.getElementById('month-picker');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+
+        let currentDate = new Date();
+        let currMonth = currentDate.getMonth();
+        let currYear = currentDate.getFullYear();
+
+        const months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        const isLeapYear = (year) => {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        };
+
+        const getFebDays = (year) => {
+            return isLeapYear(year) ? 29 : 28;
+        };
+
+        const generateCalendar = (month, year) => {
+            calendarDays.innerHTML = '';
             
-            <!-- Column 4: Completed -->
-            <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
-                <div class="p-3 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold text-primary-dark text-sm">Completed</h3>
-                    <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">1</span>
-                </div>
-                <div class="flex-1 p-2 bg-gray-50/50 overflow-y-auto">
-                    <!-- Example Card -->
-                   <div class="bg-white p-3 rounded border border-gray-200 shadow-sm mb-2 hover:shadow-md transition-shadow cursor-pointer flex items-start space-x-3">
-                       <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
-                           <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="User" class="w-full h-full object-cover">
-                       </div>
-                       <div class="flex-1 min-w-0">
-                           <div class="flex justify-between items-start">
-                               <h4 class="text-sm font-bold text-gray-800 truncate">Jodie X</h4>
-                               <div class="flex space-x-1">
-                                   <i class="fa-solid fa-star text-yellow-400 text-[10px]"></i>
-                                   <i class="fa-solid fa-star text-yellow-400 text-[10px]"></i>
-                               </div>
-                           </div>
-                           <p class="text-xs text-gray-500 mb-1">12:30pm - 12:40pm</p>
-                           <div class="flex items-center space-x-2">
-                               <span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
-                               <span class="text-[10px] text-gray-400 uppercase tracking-wide">Consultation</span>
-                           </div>
-                       </div>
-                   </div>
-                </div>
-            </div>
+            // Get last day of the month
+            let daysInMonth = [31, getFebDays(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            
+            // Date object for the first day of the month
+            let firstDay = new Date(year, month, 1);
+            
+            // 0 = Sunday, 1 = Monday, etc.
+            let startDay = firstDay.getDay();
 
-            <!-- Column 1: Unconfirmed -->
-            <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
-                <div class="p-3 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold text-primary-dark text-sm">Unconfirmed</h3>
-                    <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">0</span>
-                </div>
-                <!-- Empty State -->
-                <div class="flex-1 p-4 bg-gray-50/50 flex flex-col items-center justify-center text-gray-400">
-                     <i class="fa-regular fa-calendar-xmark text-3xl mb-2 opacity-20"></i>
-                     <span class="text-xs">No appointments</span>
-                </div>
-            </div>
+            monthPicker.innerHTML = `${months[month]} ${year}`;
 
-            <!-- Column 2: Confirmed -->
-            <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
-                <div class="p-3 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold text-primary-dark text-sm">Confirmed</h3>
-                    <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">0</span>
-                </div>
-                <div class="flex-1 p-4 bg-gray-50/50 flex flex-col items-center justify-center text-gray-400">
-                     <i class="fa-regular fa-calendar-check text-3xl mb-2 opacity-20"></i>
-                     <span class="text-xs">No confirmed appointments</span>
-                </div>
-            </div>
+            // Add empty divs for previous month days
+            for (let i = 0; i < startDay; i++) {
+                const day = document.createElement('div');
+                day.classList.add('empty');
+                calendarDays.appendChild(day);
+            }
 
-            <!-- Column 3: Arrived -->
-            <div class="flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 h-full">
-                <div class="p-3 border-b border-gray-100 flex justify-between items-center">
-                    <h3 class="font-bold text-primary-dark text-sm">Arrived</h3>
-                    <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-medium">0</span>
-                </div>
-                <div class="flex-1 p-4 bg-gray-50/50 flex flex-col items-center justify-center text-gray-400">
-                     <i class="fa-solid fa-person-walking-arrow-right text-3xl mb-2 opacity-20"></i>
-                     <span class="text-xs">No arrivals yet</span>
-                </div>
-            </div>
-        </div>
-    </main>
-    
-    <!-- Floating Action / Footer if needed -->
+            // Add days of current month
+            for (let i = 1; i <= daysInMonth[month]; i++) {
+                const day = document.createElement('div');
+                day.innerHTML = i;
+                
+                // Highlight current date
+                if (i === currentDate.getDate() && year === currentDate.getFullYear() && month === currentDate.getMonth()) {
+                    day.classList.add('curr-date');
+                }
 
+                calendarDays.appendChild(day);
+            }
+        };
 
+        prevMonthBtn.onclick = () => {
+            currMonth--;
+            if (currMonth < 0) {
+                currMonth = 11;
+                currYear--;
+            }
+            generateCalendar(currMonth, currYear);
+        };
+
+        nextMonthBtn.onclick = () => {
+            currMonth++;
+            if (currMonth > 11) {
+                currMonth = 0;
+                currYear++;
+            }
+            generateCalendar(currMonth, currYear);
+        };
+
+        // Initialize Calendar
+        generateCalendar(currMonth, currYear);
+
+        // TOGGLE SIDEBAR
+        const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        const sidebar = document.getElementById('sidebar');
+
+        // Sidebar toggle işlemi
+        menuBar.addEventListener('click', function () {
+            sidebar.classList.toggle('hide');
+        });
+
+        // Sayfa yüklendiğinde ve boyut değişimlerinde sidebar durumunu ayarlama
+        function adjustSidebar() {
+            if (window.innerWidth <= 576) {
+                sidebar.classList.add('hide');  // 576px ve altı için sidebar gizli
+                sidebar.classList.remove('show');
+            } else {
+                sidebar.classList.remove('hide');  // 576px'den büyükse sidebar görünür
+                sidebar.classList.add('show');
+            }
+        }
+
+        // Sayfa yüklendiğinde ve pencere boyutu değiştiğinde sidebar durumunu ayarlama
+        window.addEventListener('load', adjustSidebar);
+        window.addEventListener('resize', adjustSidebar);
+
+        // Arama butonunu toggle etme
+        const searchButton = document.querySelector('#content nav form .form-input button');
+        const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
+        const searchForm = document.querySelector('#content nav form');
+
+        searchButton.addEventListener('click', function (e) {
+            if (window.innerWidth < 768) {
+                e.preventDefault();
+                searchForm.classList.toggle('show');
+                if (searchForm.classList.contains('show')) {
+                    searchButtonIcon.classList.replace('bx-search', 'bx-x');
+                } else {
+                    searchButtonIcon.classList.replace('bx-x', 'bx-search');
+                }
+            }
+        })
+
+        // Dark Mode Switch
+        const switchMode = document.getElementById('switch-mode');
+
+        switchMode.addEventListener('change', function () {
+            if (this.checked) {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+        })
+
+        // Notification Menu Toggle
+        document.querySelector('.notification').addEventListener('click', function () {
+            document.querySelector('.notification-menu').classList.toggle('show');
+            document.querySelector('.profile-menu').classList.remove('show'); // Close profile menu if open
+        });
+
+        // Profile Menu Toggle
+        document.querySelector('.profile').addEventListener('click', function () {
+            document.querySelector('.profile-menu').classList.toggle('show');
+            document.querySelector('.notification-menu').classList.remove('show'); // Close notification menu if open
+        });
+
+        // Close menus if clicked outside
+        window.addEventListener('click', function (e) {
+            if (!e.target.closest('.notification') && !e.target.closest('.profile')) {
+                document.querySelector('.notification-menu').classList.remove('show');
+                document.querySelector('.profile-menu').classList.remove('show');
+            }
+        });
+
+        // Menülerin açılıp kapanması için fonksiyon
+            function toggleMenu(menuId) {
+            var menu = document.getElementById(menuId);
+            var allMenus = document.querySelectorAll('.menu');
+
+            // Diğer tüm menüleri kapat
+            allMenus.forEach(function(m) {
+                if (m !== menu) {
+                m.style.display = 'none';
+                }
+            });
+
+            // Tıklanan menü varsa aç, yoksa kapat
+            if (menu.style.display === 'none' || menu.style.display === '') {
+                menu.style.display = 'block';
+            } else {
+                menu.style.display = 'none';
+            }
+            }
+
+            // Başlangıçta tüm menüleri kapalı tut
+            document.addEventListener("DOMContentLoaded", function() {
+            var allMenus = document.querySelectorAll('.menu');
+            allMenus.forEach(function(menu) {
+                menu.style.display = 'none';
+            });
+            });
+    </script>
 </body>
 </html>
-<?php
-}else{
-     header("Location: ../index.html");
-     exit();
-}
-?>
